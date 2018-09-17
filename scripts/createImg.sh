@@ -21,7 +21,6 @@
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-DISK="boot.img"
 PARTITION="root.img"
 
 HOSTNAME="embarch"
@@ -83,8 +82,6 @@ function check_fail {
 }
 
 function lbSetup {
-announce "create card.img file... "
-truncate -s 2000M $DISK
 announce "create root.img file... "
 truncate -s 2000M $PARTITION
 check_fail $?
@@ -98,23 +95,6 @@ function prepareDisk {
 announce "Checking internet connectivity... "
 wget -q --tries=10 --timeout=20 --spider http://google.de
 check_fail $?
-
-announce "Creating partition table... "
-parted -s "$DISK" mklabel msdos
-check_fail $?
-
-announce "Creating boot partition... "
-parted -s -a optimal "$DISK" mkpart primary fat32 0 100%
-check_fail $?
-
-announce "Making partition bootable... "
-parted -s "$DISK" set 1 boot on
-check_fail $?
-
-
-# announce "Formatting boot partition with vfat... "
-# mkfs.vfat "$DISKp1PBOOT"
-# check_fail $?
 
 
 announce "Formatting root partition with ext4... "
@@ -284,9 +264,8 @@ tmpfs           /home/embarch     tmpfs   nodev,nosuid,size=50M,uid=embarch,gid=
 EOF
 check_fail $?
 
-# announce "Enabling first-boot service... "
-# arch-chroot /mnt systemctl enable firstboot.service
-# check_fail $?
+cp -r /mnt/root/boot/* ../sdcard
+
 
 announce "generate ssh host keys "
 arch-chroot /mnt/root ssh-keygen -A
@@ -329,5 +308,4 @@ mountParts
 installBase
 configure
 umount /mnt/root
-# losetup -d /dev/loop0
-# 7z -mmt4 -mx3 a card.img.7z card.img
+7z -mmt4 -mx3 a ../sdcard/root.img.7z root.img
