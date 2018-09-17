@@ -264,7 +264,6 @@ tmpfs           /home/embarch     tmpfs   nodev,nosuid,size=50M,uid=embarch,gid=
 EOF
 check_fail $?
 
-cp -r /mnt/root/boot/* ../sdcard
 
 
 announce "generate ssh host keys "
@@ -294,6 +293,10 @@ arch-chroot /mnt/root systemctl disable systemd-rfkill
 # echo "firstboot"
 # arch-chroot /mnt/root systemctl enable firstboot.service
 check_fail $?
+
+echo "copy sdcard files"
+mkdir ../sdcard
+cp -r /mnt/root/boot/* ../sdcard
 
 echo "systemd config"
 echo "RuntimeWatchdogSec=15" >> /mnt/root/etc/systemd/system.conf
