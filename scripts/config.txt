@@ -1,0 +1,20 @@
+# See /boot/overlays/README for all available options
+dtoverlay=vc4-fkms-v3d
+dtoverlay=pi3-miniuart-bt
+dtparam=watchdog=on
+disable_overscan=1
+display_rotate=0
+cec_osd_name=Webauslage
+initramfs initramfs-linux.img followkernel
+enable_uart=1
+
+###  800x480 Display configuration
+# hdmi_group: 0 auto-detect from EDID; 1 CEA; 2 DMT
+# hdmi_group=2
+# hdmi_mode: 87 custom configuration
+# hdmi_mode=87
+# hdmi_cvt: <width> <height> <framerate in Hz> <aspect 6 is 15:9> <margins> <interlace> <rb>
+# hdmi_cvt 800 480 60 6 0 0 0
+
+### WEBAUSLAGE ###
+

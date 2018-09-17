@@ -1,0 +1,12 @@
+#!/bin/bash
+
+build() {
+    echo "Build hook looproot"
+    add_runscript
+}
+
+help() {
+    cat <<HELPEOF
+Help message for looproot.
+HELPEOF
+}
