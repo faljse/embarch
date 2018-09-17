@@ -1,2 +1,2 @@
-root=/dev/sda1 rootfstype=vfat rw rootwait console=tty0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 selinux=0 plymouth.enable=0 smsc95xx.turbo_mode=N dwc_otg.lpm_enable=0 kgdboc=ttyAMA0,115200 elevator=noop consoleblank=0 init=/usr/lib/systemd/systemd
+debug root=/dev/sda1 rootfstype=vfat rw rootwait console=tty0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 selinux=0 plymouth.enable=0 smsc95xx.turbo_mode=N dwc_otg.lpm_enable=0 kgdboc=ttyAMA0,115200 elevator=noop consoleblank=0
 

@@ -52,6 +52,7 @@ tar
 shadow
 which
 util-linux
+systemd-sysvcompat
 "
 
 PACEXTRA="
@@ -83,7 +84,7 @@ function check_fail {
 
 function lbSetup {
 announce "create root.img file... "
-truncate -s 2000M $PARTITION
+truncate -s 1000M $PARTITION
 check_fail $?
 
 # announce "create loopback device "
