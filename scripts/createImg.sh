@@ -53,6 +53,7 @@ shadow
 which
 util-linux
 systemd-sysvcompat
+archlinuxarm-keyring
 "
 
 PACEXTRA="
