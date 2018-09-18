@@ -85,7 +85,7 @@ function check_fail {
 
 function lbSetup {
 announce "create root.img file... "
-truncate -s 1000M $PARTITION
+truncate -s 2000M $PARTITION
 check_fail $?
 
 # announce "create loopback device "
@@ -280,6 +280,7 @@ cp initcpio/mkinitcpio.conf /mnt/root/etc/
 cp initcpio/hooks/looproot /mnt/root/etc/initcpio/hooks/
 cp initcpio/install/looproot /mnt/root/etc/initcpio/install/
 arch-chroot /mnt/root mkinitcpio -p linux-raspberrypi
+arch-chroot /mnt/root pacman-key --populate archlinuxarm
 
 cp connman.conf /mnt/root/etc/dbus-1/system.d/
 cp 10-rules.rules /mnt/root/etc/polkit-1/rules.d/
@@ -296,9 +297,9 @@ arch-chroot /mnt/root systemctl disable systemd-rfkill
 # arch-chroot /mnt/root systemctl enable firstboot.service
 check_fail $?
 
-echo "copy sdcard files"
-mkdir ../sdcard
-cp -r /mnt/root/boot/* ../sdcard
+echo "copy usbdrive files"
+mkdir ../usbdrive
+cp -r /mnt/root/boot/* ../usbdrive
 
 echo "systemd config"
 echo "RuntimeWatchdogSec=15" >> /mnt/root/etc/systemd/system.conf
@@ -313,4 +314,4 @@ mountParts
 installBase
 configure
 umount /mnt/root
-7z -mmt4 -mx3 a ../sdcard/root.img.7z root.img
+7z -mmt4 -mx3 a ../usbdrive/root.img.7z root.img
