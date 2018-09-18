@@ -24,7 +24,7 @@
 PARTITION="root.img"
 
 HOSTNAME="embarch"
-PASSWORD="root"
+PASSWORD="embarch"
 USERNAME="embarch"
 
 TIMEZONE="Europe/Vienna"
@@ -210,7 +210,7 @@ check_fail $?
 
 announce "create user... "
 arch-chroot /mnt/root useradd -m -U -G wheel -s /bin/bash "$USERNAME"
-echo "$USERNAME:pass" | arch-chroot /mnt/root chpasswd 
+echo "$USERNAME:$PASSWORD" | arch-chroot /mnt/root chpasswd 
 # check_fail $?
 
 

@@ -6,7 +6,7 @@ run_latehook()
     # mount -t vfat /dev/sda1 /host
 
     # And the loop filesystem
-    losetup -r /dev/loop0 /new_root/root.img
+    losetup  /dev/loop0 /new_root/root.img
     mount -t ext4 -o ro,noload /dev/loop0 /new_root
     # mount --bind /host /new_root/host
 }
