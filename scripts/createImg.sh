@@ -54,6 +54,7 @@ which
 util-linux
 systemd-sysvcompat
 archlinuxarm-keyring
+archlinux-keyring
 "
 
 PACEXTRA="
@@ -260,8 +261,8 @@ cat <<EOF > /mnt/root/etc/fstab
 tmpfs           /tmp            tmpfs   nodev,nosuid,size=50M   0       0
 tmpfs           /var/tmp        tmpfs   nodev,nosuid,size=10M   0       0
 tmpfs           /var/log        tmpfs   nodev,nosuid,size=10M   0       0
-tmpfs           /var/cache      tmpfs   nodev,nosuid,size=10M   0       0
-tmpfs           /run            tmpfs   nodev,nosuid,size=20M   0       0
+tmpfs           /var/cache      tmpfs   nodev,nosuid,size=50M   0       0
+tmpfs           /run            tmpfs   nodev,nosuid,size=50M   0       0
 tmpfs           /home/embarch     tmpfs   nodev,nosuid,size=50M,uid=embarch,gid=embarch       0       0
 EOF
 check_fail $?
@@ -280,7 +281,10 @@ cp initcpio/mkinitcpio.conf /mnt/root/etc/
 cp initcpio/hooks/looproot /mnt/root/etc/initcpio/hooks/
 cp initcpio/install/looproot /mnt/root/etc/initcpio/install/
 arch-chroot /mnt/root mkinitcpio -p linux-raspberrypi
+arch-chroot /mnt/root pacman-key --init
+arch-chroot /mnt/root pacman-key --populate archlinux
 arch-chroot /mnt/root pacman-key --populate archlinuxarm
+
 
 cp connman.conf /mnt/root/etc/dbus-1/system.d/
 cp 10-rules.rules /mnt/root/etc/polkit-1/rules.d/
