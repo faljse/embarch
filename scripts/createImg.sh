@@ -55,6 +55,7 @@ util-linux
 systemd-sysvcompat
 archlinuxarm-keyring
 archlinux-keyring
+btrfs-progs
 "
 
 PACEXTRA="
@@ -100,8 +101,8 @@ wget -q --tries=10 --timeout=20 --spider http://google.de
 check_fail $?
 
 
-announce "Formatting root partition with ext4... "
-mkfs.ext4 -F "$PARTITION"
+announce "Formatting root partition with btrfs... "
+mkfs.btrfs  "$PARTITION"
 check_fail $?
 }
 
@@ -257,7 +258,7 @@ check_fail $?
 
 announce "Generating fstab.."
 cat <<EOF > /mnt/root/etc/fstab
-/dev/loop0  	/	ext4    loop,ro        0       1
+/dev/loop0  	/	btrfs    loop,ro, compress        0       1
 tmpfs           /tmp            tmpfs   nodev,nosuid,size=50M   0       0
 tmpfs           /var/tmp        tmpfs   nodev,nosuid,size=10M   0       0
 tmpfs           /var/log        tmpfs   nodev,nosuid,size=10M   0       0
